@@ -1,6 +1,6 @@
 ![Poof of Concept Design](poc-network.png)
 
-Proof of concept. VPC with 3 public and 3 private subnets in 3 availability zones.  Public uses internet gateway for exit, private uses NAT gatewateways.
+Proof of concept. VPC with 3 public and 3 private subnets in 3 availability zones.  Public uses internet gateway for exit, private uses NAT gateways.
 Three EC2 instances are used in the private networks running nginx with a Application Load balancer.
 
 Access is granted via EC2 Instant Connect Endpoint, or ZeroTier VPN network access.
@@ -19,7 +19,7 @@ Access is granted via EC2 Instant Connect Endpoint, or ZeroTier VPN network acce
 
 ## Accessing EC2 resources either through Instant Connect or ZeroTier VPN
 
-### EC2 Instance Connect
+### EC2 Instance Connect Via AWS Console or CLI
 
 ```
 ssh -i ~USERNAME/Downloads/Key1.pem ubuntu@i-INSTANCE -o ProxyCommand='aws ec2-instance-connect open-tunnel --instance-id i-INSTANCE'
