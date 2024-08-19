@@ -1,0 +1,14 @@
+[all]
+
+54.173.135.133 ansible_user=ubuntu ansible_ssh_args="-i ~dennis/Downloads/Key1.pem" ansible_python_interpreter=auto_silent
+i-034c20757298bc465 ansible_user=ubuntu ansible_python_interpreter=auto_silent
+i-0de71432c300867c3 ansible_user=ubuntu ansible_python_interpreter=auto_silent
+i-016e7e39495ed3a96 ansible_user=ubuntu ansible_python_interpreter=auto_silent
+
+[zerotier]
+54.173.135.133 ansible_user=ubuntu ansible_ssh_args="-i ~dennis/Downloads/Key1.pem" ansible_python_interpreter=auto_silent
+
+[ztweb]
+10.0.2.109 ansible_user=ubuntu ansible_ssh_args="-i ~dennis/Downloads/Key1.pem" ansible_python_interpreter=auto_silent
+10.0.4.86 ansible_user=ubuntu ansible_ssh_args="-i ~dennis/Downloads/Key1.pem" ansible_python_interpreter=auto_silent
+10.0.6.144 ansible_user=ubuntu ansible_ssh_args="-i ~dennis/Downloads/Key1.pem" ansible_python_interpreter=auto_silent

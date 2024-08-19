@@ -1,0 +1,78 @@
+---
+
+- hosts: zerotier
+  gather_facts: false
+  become: yes
+  tasks:
+  
+  - name: Install ZeroTier
+    shell: curl -s 'https://raw.githubusercontent.com/zerotier/ZeroTierOne/main/doc/contact%40zerotier.com.gpg' | gpg --import && if z=$(curl -s 'https://install.zerotier.com/' | gpg); then echo "$z" | sudo bash; fi  
+    register: output
+
+  - debug:
+        msg: "{{output.stdout_lines}}"
+
+  - name: Set IP Forwarding
+    ansible.posix.sysctl:
+       name: net.ipv4.ip_forward
+       value: '1'
+       sysctl_set: true
+       state: present
+       reload: true
+
+  - name: Join Network
+    shell: zerotier-cli join db64858fede99d2e
+    register: output
+
+  - debug:
+        msg: "{{output.stdout_lines}}"
+
+  - name: Install iptables-persistent
+    ansible.builtin.apt:
+      name: iptables-persistent
+      state: present
+
+  - name: Iptables flush filter
+    ansible.builtin.iptables:
+      chain: "{{ item }}"
+      flush: yes
+    with_items:  [ 'INPUT', 'FORWARD', 'OUTPUT' ]
+
+  - name: Iptables flush nat
+    ansible.builtin.iptables:
+      table: nat
+      chain: '{{ item }}'
+      flush: yes
+    with_items: [ 'INPUT', 'OUTPUT', 'PREROUTING', 'POSTROUTING' ]
+
+  - name: IP MASQ
+    ansible.builtin.iptables:
+      table: nat
+      chain: POSTROUTING
+      out_interface: enX0
+      jump: MASQUERADE
+    become: yes
+
+  - name: IP MASQ
+    ansible.builtin.iptables:
+      chain: FORWARD
+      in_interface: enX0
+      out_interface: ztksewyewd
+      jump: ACCEPT
+      match: state
+      ctstate: ESTABLISHED,RELATED
+    become: yes
+
+  - name: IP MASQ
+    ansible.builtin.iptables:
+      chain: FORWARD
+      in_interface: ztksewyewd
+      out_interface: enX0
+      jump: ACCEPT
+    become: yes
+
+  - name: Save Tables
+    shell: iptables-save > /etc/iptables/rules.v4
+    register: output
+  - debug:
+        msg: "{{output.stdout_lines}}"  
