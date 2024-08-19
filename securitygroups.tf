@@ -30,7 +30,7 @@ resource "aws_security_group" "ec2_server_sg_tf" {
     from_port   = 0
     to_port     = 0
     protocol    = "all"
-    cidr_blocks = ["10.0.0.0/16"]
+    cidr_blocks = [ var.cidr ]
   }
   ingress {
     description = "Admin Security groups SSH"
@@ -78,7 +78,7 @@ resource "aws_security_group" "zt_server_sg_tf" {
     from_port   = 0
     to_port     = 0
     protocol    = "all"
-    cidr_blocks = ["10.0.0.0/16"]
+    cidr_blocks = [ var.cidr ]
   }
 
   egress {
