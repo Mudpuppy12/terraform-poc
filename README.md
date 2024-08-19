@@ -9,10 +9,10 @@ Access is granted via EC2 Instant Connect Endpoint, or ZeroTier VPN network acce
 * Look in terraform.tfvars for any updates
 * Run Terraform(init/validate/apply)
 * Update Ansible Inventory
-* Run zerotier.yml (Update nedwork ID in play)
-* Accept ZT Gateway client in My ZeroTier Network configuration. 
+* Run zerotier.yml (Update network ID in play)
+* Accept ZT Gateway client in My ZeroTier Network configuration for the network ID
 * Update Route for VPC 10.0.0.0/16 to ZT Gateway Client IP
-* Run ngix.yml
+* Run nginx.yml
 
 # Notes
 * EC2 ICE Service only works if host SSH is opened in the security group to public IP address of client. (See terraform.tfvars)
