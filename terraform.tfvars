@@ -14,8 +14,11 @@ database_subnets                   = ["10.0.151.0/24", "10.0.152.0/24", "10.0.15
 create_database_subnet_group       = false
 create_database_subnet_route_table = false
 enable_nat_gateway                 = true
-single_nat_gateway                 = false
-one_nat_gateway_per_az             = true
+single_nat_gateway                 = true
+one_nat_gateway_per_az             = false
+
+# SSM Variables
+s3_bucket = "ssm"
 
 
 # ZeroTier

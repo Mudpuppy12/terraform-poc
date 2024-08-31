@@ -1,5 +1,9 @@
 # generic variables defined
 
+data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
+
+
 # AWS Region
 variable "region" {
   description = "Region in which AWS Resources to be created"
